@@ -1,7 +1,7 @@
 import requests
 
 def get_posts():
-    url = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40lucaslin0102'
+    url = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@lucaslin0102'
 
     try:
         response = requests.get(url)
@@ -21,20 +21,20 @@ def main():
     posts = get_posts()
 
     if posts:        
-        blogsCount = len(posts["items"])
+        blogscount = len(posts["items"])
         print('Title:', posts["feed"]["title"])
         print('Feed Url:', posts["feed"]["url"])
-        print('Number of Blogs:', blogsCount)
+        print('Number of Blogs:', blogscount)
         print('Blogs:')
         i=0
-        while blogsCount > 0:
+        while blogscount > 0:
             print('#', i+1)
             blog = posts["items"][i];
             print('Blog Title:', blog["title"])
             print('Blog Link:', blog["link"])
             print('Blog Author:', blog["author"])
             print('Blog Published Date:', blog["pubDate"])
-            if blogsCount == i+1:
+            if blogscount == i+1:
              break
             i+=1
     else:
