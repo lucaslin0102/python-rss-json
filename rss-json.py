@@ -1,7 +1,7 @@
 import requests
 
 def get_posts():
-    url = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40lucaslin0102'
+    url = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@lucaslin0102'
 
     try:
         response = requests.get(url)
