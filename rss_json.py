@@ -33,7 +33,7 @@ def post_rss_json(feedurl):
                 print('Failed to fetch response from API.')
         else:
             print('Error:', response.status_code)
-    except requests.exceptions.RequestException as e:
+    except Exception as e:
         print('Error:', e)
     
 def parse_rss_json(feedurl):
@@ -60,7 +60,7 @@ def parse_rss_json(feedurl):
                 i+=1
         else:
             print('Failed to parse the feed url.')
-    except e:
+    except Exception as e:
          print('Error:', e)
         
 
