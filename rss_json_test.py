@@ -3,15 +3,13 @@ from unittest.mock import patch, Mock
 import requests
 import feedparser
 
-# Import the functions from your script
-from rss_json import post_rss_json, parse_rss_json  # replace 'rss_json' with the actual module name
+from rss_json import post_rss_json, parse_rss_json
 
 class TestRSSFunctions(unittest.TestCase):
 
     @patch('requests.get')
     @patch('builtins.print')
     def test_post_rss_json_success(self, mock_print, mock_get):
-        # Create a mock response object with the desired properties
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
