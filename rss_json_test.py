@@ -1,9 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
-import requests
-import feedparser
-
-from rss_json import post_rss_json, parse_rss_json
+import argparse
+import rss_json
 
 class TestRSSFunctions(unittest.TestCase):
 
@@ -21,7 +19,7 @@ class TestRSSFunctions(unittest.TestCase):
         }
         mock_get.return_value = mock_response
 
-        post_rss_json("http://test.rss")
+        rss_json.post_rss_json("http://test.rss")
         mock_print.assert_any_call('Title:', 'Test Feed')
         mock_print.assert_any_call('Feed Url:', 'http://test.feed')
         mock_print.assert_any_call('Number of Blogs:', 2)
@@ -37,10 +35,52 @@ class TestRSSFunctions(unittest.TestCase):
             ]
         }
 
-        parse_rss_json("http://test.rss")
+        rss_json.parse_rss_json("http://test.rss")
         mock_print.assert_any_call('Title:', 'Test Feed')
         mock_print.assert_any_call('Feed Url:', 'http://test.feed')
         mock_print.assert_any_call('Number of Blogs:', 2)
+    
+    @patch('rss_json.post_rss_json')
+    @patch('rss_json.parse_rss_json')
+    @patch('builtins.print')
+    @patch('argparse.ArgumentParser.parse_args')
+    def test_main_api_option(self, mock_parse_args, mock_print, mock_post_rss_json, mock_parse_rss_json):
+        # Simulate command-line arguments
+        mock_parse_args.return_value = argparse.Namespace(options='api', feedurl="http://test.rss")
+        
+        # Call the main function
+        rss_json.main()
+        
+        # Assertions to ensure correct functions were called
+        mock_print.assert_any_call("Selected RSS to JSON option: ", 'api')
+
+    @patch('rss_json.post_rss_json')
+    @patch('rss_json.parse_rss_json')
+    @patch('builtins.print')
+    @patch('argparse.ArgumentParser.parse_args')
+    def test_main_feedparser_option(self, mock_parse_args, mock_print, mock_post_rss_json, mock_parse_rss_json):
+        # Simulate command-line arguments
+        mock_parse_args.return_value = argparse.Namespace(options='feedparser', feedurl="http://test.rss")
+        
+        # Call the main function
+        rss_json.main()
+        
+        # Assertions to ensure correct functions were called
+        mock_print.assert_any_call("Selected RSS to JSON option: ", 'feedparser')
+
+    @patch('rss_json.post_rss_json')
+    @patch('builtins.print')
+    @patch('argparse.ArgumentParser.parse_args')
+    def test_main_default_feedurl(self, mock_parse_args, mock_print, mock_post_rss_json):
+        # Simulate command-line arguments
+        mock_parse_args.return_value = argparse.Namespace(options='api', feedurl="https://medium.com/feed/@lucaslin0102")
+        
+        # Call the main function
+        rss_json.main()
+        
+        # Assertions to ensure correct functions were called
+        mock_print.assert_any_call("Selected RSS to JSON option: ", 'api')
+        mock_post_rss_json.assert_called_once_with("https://medium.com/feed/@lucaslin0102")
 
 if __name__ == '__main__':
     unittest.main()
