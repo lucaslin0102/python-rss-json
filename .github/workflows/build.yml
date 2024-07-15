@@ -25,6 +25,8 @@ jobs:
         run: coverage run -m pytest
       - name: Run coverage to generate XML
         run: coverage xml
+      - name: List generated files
+        run: ls
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env: 
