@@ -4,7 +4,7 @@ import argparse
 import rss_json
 from xmlrunner import XMLTestRunner  # Import the XMLTestRunner
 
-class TestRSSFunctions(unittest.TestCase):
+class rss_json_test(unittest.TestCase):
 
     @patch('requests.get')
     @patch('builtins.print')
