@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, Mock
 import argparse
 import rss_json
+from xmlrunner import XMLTestRunner  # Import the XMLTestRunner
 
 class TestRSSFunctions(unittest.TestCase):
 
@@ -83,4 +84,5 @@ class TestRSSFunctions(unittest.TestCase):
         mock_post_rss_json.assert_called_once_with("https://medium.com/feed/@lucaslin0102")
 
 if __name__ == '__main__':
-    unittest.main()
+    with open('xunit-result.xml', 'wb') as output:
+        unittest.main(testRunner=XMLTestRunner(output=output))

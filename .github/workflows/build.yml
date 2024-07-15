@@ -18,10 +18,12 @@ jobs:
         with:
           python-version: ${{ matrix.python }}    
       - name: Install pytest, coverage and other modules
-        run: pip install pytest coverage requests feedparser argparse
-      - name: Run pytest
+        run: pip install unittest-xml-reporting pytest coverage requests feedparser argparse
+      - name: Run unit tests execution report
+        run: python rss_json_test.py
+      - name: Run coverage with pytest
         run: coverage run -m pytest
-      - name: Run coverage
+      - name: Run coverage to generate XML
         run: coverage xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
