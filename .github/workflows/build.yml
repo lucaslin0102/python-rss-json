@@ -24,7 +24,7 @@ jobs:
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
       - name: Run unit tests execution report
-        run: python tests/rss_json_test.py
+        run: python -m unittest tests/rss_json_test.py
       - name: Run coverage with pytest
         run: coverage run -m pytest
       - name: Run coverage to generate XML
