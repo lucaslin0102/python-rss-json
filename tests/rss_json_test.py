@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import patch, Mock
 import argparse
-import rss_json
+import sources.rss_json as rss_json
 from xmlrunner import XMLTestRunner  # Import the XMLTestRunner
 
-class rss_json_test(unittest.TestCase):
+class rss_json_test1(unittest.TestCase):
 
     @patch('requests.get')
     @patch('builtins.print')
@@ -41,11 +41,10 @@ class rss_json_test(unittest.TestCase):
         mock_print.assert_any_call('Feed Url:', 'http://test.feed')
         mock_print.assert_any_call('Number of Blogs:', 2)
     
-    @patch('rss_json.post_rss_json')
-    @patch('rss_json.parse_rss_json')
+
     @patch('builtins.print')
     @patch('argparse.ArgumentParser.parse_args')
-    def test_main_api_option(self, mock_parse_args, mock_print, mock_post_rss_json, mock_parse_rss_json):
+    def test_main_api_option(self, mock_parse_args, mock_print):
         # Simulate command-line arguments
         mock_parse_args.return_value = argparse.Namespace(options='api', feedurl="http://test.rss")
         
@@ -55,11 +54,10 @@ class rss_json_test(unittest.TestCase):
         # Assertions to ensure correct functions were called
         mock_print.assert_any_call("Selected RSS to JSON option: ", 'api')
 
-    @patch('rss_json.post_rss_json')
-    @patch('rss_json.parse_rss_json')
+
     @patch('builtins.print')
     @patch('argparse.ArgumentParser.parse_args')
-    def test_main_feedparser_option(self, mock_parse_args, mock_print, mock_post_rss_json, mock_parse_rss_json):
+    def test_main_feedparser_option(self, mock_parse_args, mock_print):
         # Simulate command-line arguments
         mock_parse_args.return_value = argparse.Namespace(options='feedparser', feedurl="http://test.rss")
         
@@ -69,7 +67,7 @@ class rss_json_test(unittest.TestCase):
         # Assertions to ensure correct functions were called
         mock_print.assert_any_call("Selected RSS to JSON option: ", 'feedparser')
 
-    @patch('rss_json.post_rss_json')
+    @patch('sources.rss_json.post_rss_json')
     @patch('builtins.print')
     @patch('argparse.ArgumentParser.parse_args')
     def test_main_default_feedurl(self, mock_parse_args, mock_print, mock_post_rss_json):

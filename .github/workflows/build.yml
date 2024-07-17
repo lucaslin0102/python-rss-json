@@ -20,7 +20,7 @@ jobs:
       - name: Install pytest, coverage and other modules
         run: pip install unittest-xml-reporting pytest coverage requests feedparser argparse
       - name: Run unit tests execution report
-        run: python rss_json_test.py
+        run: python tests/rss_json_test.py
       - name: Run coverage with pytest
         run: coverage run -m pytest
       - name: Run coverage to generate XML

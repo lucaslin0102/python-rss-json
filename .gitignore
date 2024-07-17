@@ -3,3 +3,8 @@
 /.coverage
 coverage.xml
 xunit-result.xml
+sonar-analysis.log
+/.scannerwork
+dist
+test
+build
