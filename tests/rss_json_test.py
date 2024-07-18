@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
 import argparse
+from sources import *
 import sources.rss_json as rss_json
 from xmlrunner import XMLTestRunner  # Import the XMLTestRunner
 
